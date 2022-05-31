@@ -85,6 +85,8 @@ class ModbusPull():
     def __save_time_run(self):
         self.__timerun = time.time()
 
+        
+    # need 35ms to begin sending new data
     def __wait_to_next_time(self,timeout = 0.035):
         time_switch_frame = time.time() - self.__timerun 
         if  time_switch_frame < timeout: 
