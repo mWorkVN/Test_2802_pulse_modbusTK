@@ -74,21 +74,13 @@ class ModbusPull():
         return check
 
     @retries
-    def get_data(self,id,function,address,value,format = None, tries= 3):
-        if format == None:
-            dataGet = self.master.execute(id, function, address, value)  
-        else:
-            dataGet = self.master.execute(id, function, address, value,data_format = format)  
-
+    def get_data(self,id,function,address,value,format = "", tries= 3):
+        dataGet = self.master.execute(id, function, address, value,data_format = format)  
+        return dataGet
     @retries
-    def send_data(self,id,function,address,value,format = None,tries = 3)->boolean:
-
-        if format == None:
-            self.master.execute(id, function, address, output_value = value)
-        else:
-            self.master.execute(id, function, address, output_value = value,data_format = format)
-
-
+    def send_data(self,id,function,address,value,format = "",tries = 3)->boolean:
+        dataGet = self.master.execute(id, function, address, output_value = value,data_format = format)
+        return dataGet
 
     def __save_time_run(self):
         self.__timerun = time.time()
@@ -134,7 +126,7 @@ class controlPump(ModbusPull):
         start_address =0
         if (id >192):
             start_address = 4100
-        status,_ = self.get_data(id,cst.READ_INPUT_REGISTERS,start_address,1)
+        status,_ = self.get_data(id,cst.READ_COILS,start_address,1)
         return status
 
 if __name__ == "__main__":
