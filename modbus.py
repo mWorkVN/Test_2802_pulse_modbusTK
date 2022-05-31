@@ -1,3 +1,6 @@
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+
 from xmlrpc.client import boolean
 import serial, time
 import modbus_tk.defines as cst
@@ -27,7 +30,6 @@ class ModbusPull():
             )
         else:self.master = None
         self.settings(timeout)
-        self.settings(0.1)
 
     def settings(self,set_timeout):
         if self.msgError != 'ok': return
